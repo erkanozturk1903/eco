@@ -31,7 +31,6 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-tabs',
             '@radix-ui/react-toast',
           ],
-          'supabase': ['@supabase/supabase-js'],
           'tanstack': ['@tanstack/react-query'],
           'form-libs': ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
