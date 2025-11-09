@@ -1,0 +1,173 @@
+services:
+  # PostgreSQL Database with pgvector for AI/ML embeddings
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: eco-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-eco_database}
+      POSTGRES_USER: ${POSTGRES_USER:-eco_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-eco_password}
+    ports:
+      - "${POSTGRES_PORT:-5434}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - eco-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-eco_user} -d ${POSTGRES_DB:-eco_database}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # Redis for caching and ML task queue
+  redis:
+    image: redis:7-alpine
+    container_name: eco-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6380}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - eco-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+
+  # FastAPI Backend with ML/AI support
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eco-backend
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - PORT=8000
+      - DEBUG=${DEBUG:-True}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-eco_user}:${POSTGRES_PASSWORD:-eco_password}@postgres:5432/${POSTGRES_DB:-eco_database}
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-me}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5173,http://localhost:8080,http://localhost:3000}
+      - ML_MODEL_PATH=/app/models
+      - UPLOAD_DIR=/app/uploads
+    ports:
+      - "${BACKEND_PORT:-8002}:8000"
+    volumes:
+      - ./app:/app/app
+      - ./uploads:/app/uploads
+      - ./models:/app/models
+      - ml_cache:/root/.cache
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - eco-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # Jupyter Notebook for ML/AI development (optional - use profile)
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: eco-jupyter
+    restart: unless-stopped
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./app:/home/jovyan/app:ro
+      - ./models:/home/jovyan/models
+      - ./data:/home/jovyan/data
+    networks:
+      - eco-network
+    profiles:
+      - dev
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+
+  # MinIO for ML model storage (optional - use profile)
+  minio:
+    image: minio/minio:latest
+    container_name: eco-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD:-minioadmin123}
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - eco-network
+    profiles:
+      - dev
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Celery Worker for async ML tasks (optional - use profile)
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eco-celery-worker
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-eco_user}:${POSTGRES_PASSWORD:-eco_password}@postgres:5432/${POSTGRES_DB:-eco_database}
+      - REDIS_URL=redis://redis:6379/0
+      - ML_MODEL_PATH=/app/models
+    volumes:
+      - ./app:/app/app
+      - ./models:/app/models
+      - ./data:/app/data
+      - ml_cache:/root/.cache
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - eco-network
+    profiles:
+      - worker
+    command: celery -A app.celery_worker worker --loglevel=info --concurrency=2
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+
+networks:
+  eco-network:
+    driver: bridge
+    name: eco-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local
+  ml_cache:
+    driver: local
