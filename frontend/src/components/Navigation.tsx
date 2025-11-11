@@ -33,7 +33,7 @@ const Navigation = () => {
               alt="Fera Danışmanlık"
               className="h-10 w-auto transform group-hover:scale-110 transition-transform duration-300"
             />
-            <span className="font-heading font-bold text-xl text-foreground">
+            <span className="font-heading font-semibold text-2xl text-foreground tracking-tight">
               Fera Danışmanlık
             </span>
           </Link>
