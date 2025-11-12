@@ -45,15 +45,15 @@ const AboutCTA = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-white/80">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-white rounded-full" />
-                <span className="font-body">info@ecoconsult.com</span>
+                <span className="font-body">info@feradanismanlik.com.tr</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-white rounded-full" />
-                <span className="font-body">+90 (212) 123 45 67</span>
+                <span className="font-body">+90 530 976 7938 / +90 532 431 1675</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-white rounded-full" />
-                <span className="font-body">Levent, İstanbul</span>
+                <span className="font-body">Çekmeköy, İstanbul</span>
               </div>
             </div>
           </div>

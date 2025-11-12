@@ -15,20 +15,20 @@ const MissionVision = () => {
               <h2 className="font-heading font-bold text-3xl text-foreground mb-6">
                 Misyonumuz
               </h2>
-              
+
               <div className="space-y-4 font-body text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  Türkiye'deki işletmelerin sürdürülebilirlik dönüşümünde güvenilir 
-                  ortağı olmak ve çevresel ayak izlerini azaltmalarına öncülük etmek.
+                  Türkiye'deki işletmelerin sürdürülebilirlik dönüşümünde güvenilir ortağı olmak
+                  ve çevresel ayak izlerini azaltmalarına öncülük etmek.
                 </p>
                 <p>
-                  Yapay zeka destekli teknolojilerimiz ve uzman kadromuzla, şirketlerin 
-                  TSRS standartlarına uygun raporlama yapmalarını sağlamak ve karbon 
-                  nötr hedeflerine ulaşmalarında rehberlik etmek.
+                  Yapay zeka destekli platformumuz ve uzman kadromuzla, şirketlerin TSRS standartlarına
+                  uygun raporlama yapmalarını sağlamak ve karbon nötr hedeflerine ulaşmalarında
+                  rehberlik etmek.
                 </p>
                 <p>
-                  Her ölçekteki işletmeye erişilebilir, şeffaf ve etkili ESG çözümleri 
-                  sunarak Türkiye'nin sürdürülebilir kalkınma hedeflerine katkıda bulunmak.
+                  Her ölçekteki işletmeye erişilebilir, şeffaf ve etkili ESG çözümleri sunarak
+                  Türkiye'nin sürdürülebilir kalkınma hedeflerine katkıda bulunmak.
                 </p>
               </div>
             </div>

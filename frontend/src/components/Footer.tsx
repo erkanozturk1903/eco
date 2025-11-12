@@ -34,7 +34,7 @@ const Footer = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
               </div>
-              <span className="font-heading font-bold text-xl">EcoConsult</span>
+              <span className="font-heading font-bold text-xl">Fera Danışmanlık</span>
             </Link>
             <p className="font-body text-white/70 leading-relaxed mb-6">
               Türkiye'nin sürdürülebilir geleceğini inşa eden öncü ESG danışmanlık platformu.
@@ -94,25 +94,27 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
                 <a
-                  href="mailto:info@ecoconsult.com"
+                  href="mailto:info@feradanismanlik.com.tr"
                   className="font-body text-white/70 hover:text-secondary transition-colors duration-300"
                 >
-                  info@ecoconsult.com
+                  info@feradanismanlik.com.tr
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                <a
-                  href="tel:+902121234567"
-                  className="font-body text-white/70 hover:text-secondary transition-colors duration-300"
-                >
-                  +90 (212) 123 45 67
-                </a>
+                <div className="font-body text-white/70">
+                  <a href="tel:+905309767938" className="hover:text-secondary transition-colors duration-300 block">
+                    +90 530 976 7938
+                  </a>
+                  <a href="tel:+905324311675" className="hover:text-secondary transition-colors duration-300 block">
+                    +90 532 431 1675
+                  </a>
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
                 <span className="font-body text-white/70">
-                  Levent, İstanbul, Türkiye
+                  Merkez Mahallesi Mülkiye Sokak Nexonya Köyiçi Evleri A Bl D:14 Çekmeköy İstanbul
                 </span>
               </li>
             </ul>
@@ -123,7 +125,7 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="font-body text-white/60 text-sm">
-              © {new Date().getFullYear()} EcoConsult. Tüm hakları saklıdır.
+              © {new Date().getFullYear()} Fera Danışmanlık. Tüm hakları saklıdır.
             </p>
             <div className="flex gap-6">
               <Link
