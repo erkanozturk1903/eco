@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import featuredImage from '@/assets/article-featured.jpg';
 
 const FeaturedArticle = () => {
@@ -54,10 +55,12 @@ const FeaturedArticle = () => {
             </div>
 
             {/* CTA Button */}
-            <Button className="bg-primary hover:bg-primary-light font-body font-semibold group/btn">
-              Devamını Oku
-              <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-            </Button>
+            <Link to="/kaynaklar/tsrs-2024-rehberi">
+              <Button className="bg-primary hover:bg-primary-light font-body font-semibold group/btn">
+                Devamını Oku
+                <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

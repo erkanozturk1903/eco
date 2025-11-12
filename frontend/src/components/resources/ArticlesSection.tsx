@@ -2,140 +2,26 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Calendar } from 'lucide-react';
-import article1 from '@/assets/article-1.jpg';
-import article2 from '@/assets/article-2.jpg';
-import article3 from '@/assets/article-3.jpg';
-import article4 from '@/assets/article-4.jpg';
-import article5 from '@/assets/article-5.jpg';
-import article6 from '@/assets/article-6.jpg';
+import { Link } from 'react-router-dom';
+import { articles } from '@/data/articles';
 
 const ArticlesSection = () => {
+  // Filter out the featured article (shown separately)
+  const displayArticles = articles.filter(a => a.slug !== 'tsrs-2024-rehberi');
   const [visibleArticles, setVisibleArticles] = useState(9);
 
-  const articles = [
-    {
-      image: article1,
-      category: 'Karbon',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'Karbon Ayak İzi Nasıl Hesaplanır?',
-      excerpt: 'ISO 14064 standardına göre Scope 1, 2 ve 3 emisyonlarınızı hesaplama rehberi.',
-      readTime: '5 dk',
-      date: '10 Ocak 2024',
-    },
-    {
-      image: article2,
-      category: 'Net Sıfır',
-      categoryColor: 'bg-secondary/10 text-secondary',
-      title: 'Net Sıfır Hedefi Belirleme Rehberi',
-      excerpt: 'Science Based Targets metodolojisi ile karbon nötr yol haritası oluşturun.',
-      readTime: '7 dk',
-      date: '8 Ocak 2024',
-    },
-    {
-      image: article3,
-      category: 'TSRS',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'SKDM Nedir ve İşletmenizi Nasıl Etkiler?',
-      excerpt: 'Sürdürülebilirlik Kurulu ve Düzenlemeleri Müdürlüğü\'nün yeni düzenlemeleri.',
-      readTime: '6 dk',
-      date: '5 Ocak 2024',
-    },
-    {
-      image: article4,
-      category: 'ESG',
-      categoryColor: 'bg-secondary/10 text-secondary',
-      title: 'Tedarik Zincirinde ESG Yönetimi',
-      excerpt: 'Tedarikçilerinizin sürdürülebilirlik performansını değerlendirme yöntemleri.',
-      readTime: '8 dk',
-      date: '3 Ocak 2024',
-    },
-    {
-      image: article5,
-      category: 'Raporlama',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'GRI Standartlarına Göre Raporlama',
-      excerpt: 'Global Reporting Initiative çerçevesinde sürdürülebilirlik raporu hazırlama.',
-      readTime: '10 dk',
-      date: '28 Aralık 2023',
-    },
-    {
-      image: article6,
-      category: 'ESG',
-      categoryColor: 'bg-secondary/10 text-secondary',
-      title: 'Döngüsel Ekonomi Modelleri',
-      excerpt: 'Atık yönetiminden değer yaratma ve döngüsel iş modelleri geliştirme.',
-      readTime: '6 dk',
-      date: '25 Aralık 2023',
-    },
-    {
-      image: article1,
-      category: 'Karbon',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'İklim Riski Değerlendirmesi',
-      excerpt: 'TCFD önerileri doğrultusunda iklim risklerini belirleme ve yönetme stratejileri.',
-      readTime: '9 dk',
-      date: '20 Aralık 2023',
-    },
-    {
-      image: article2,
-      category: 'TSRS',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'Sürdürülebilirlik KPI\'ları Belirleme',
-      excerpt: 'ESG performansınızı ölçmek için doğru göstergeleri seçme rehberi.',
-      readTime: '5 dk',
-      date: '18 Aralık 2023',
-    },
-    {
-      image: article3,
-      category: 'ESG',
-      categoryColor: 'bg-secondary/10 text-secondary',
-      title: 'Yeşil Finansman ve ESG Kredileri',
-      excerpt: 'Sürdürülebilirlik bağlantılı finansman fırsatları ve başvuru süreci.',
-      readTime: '7 dk',
-      date: '15 Aralık 2023',
-    },
-    // Additional articles for "Load More" functionality
-    {
-      image: article4,
-      category: 'Karbon',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'Yenilenebilir Enerji Geçişi',
-      excerpt: 'İşletmenizde yenilenebilir enerji kullanımına geçiş adımları ve faydaları.',
-      readTime: '6 dk',
-      date: '12 Aralık 2023',
-    },
-    {
-      image: article5,
-      category: 'ESG',
-      categoryColor: 'bg-secondary/10 text-secondary',
-      title: 'Sosyal Sorumluluk Projeleri',
-      excerpt: 'ESG stratejinize entegre sosyal etki yaratma yöntemleri.',
-      readTime: '8 dk',
-      date: '10 Aralık 2023',
-    },
-    {
-      image: article6,
-      category: 'TSRS',
-      categoryColor: 'bg-primary/10 text-primary',
-      title: 'Paydaş Katılımı ve İletişimi',
-      excerpt: 'Sürdürülebilirlik raporlamasında paydaş beklentilerini yönetme.',
-      readTime: '5 dk',
-      date: '8 Aralık 2023',
-    },
-  ];
-
   const handleLoadMore = () => {
-    setVisibleArticles((prev) => Math.min(prev + 6, articles.length));
+    setVisibleArticles((prev) => Math.min(prev + 6, displayArticles.length));
   };
 
   return (
     <div>
       {/* Articles Grid */}
       <div className="grid md:grid-cols-2 gap-8 mb-12">
-        {articles.slice(0, visibleArticles).map((article, index) => (
-          <a
-            key={index}
-            href="#"
+        {displayArticles.slice(0, visibleArticles).map((article, index) => (
+          <Link
+            key={article.slug}
+            to={`/kaynaklar/${article.slug}`}
             className="group animate-fade-in"
             style={{ animationDelay: `${index * 0.05}s` }}
           >
@@ -180,12 +66,12 @@ const ArticlesSection = () => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 
       {/* Load More Button */}
-      {visibleArticles < articles.length && (
+      {visibleArticles < displayArticles.length && (
         <div className="text-center animate-fade-in">
           <Button
             onClick={handleLoadMore}
@@ -195,7 +81,7 @@ const ArticlesSection = () => {
             Daha Fazla Yükle
           </Button>
           <p className="font-body text-sm text-muted-foreground mt-4">
-            {visibleArticles} / {articles.length} makale gösteriliyor
+            {visibleArticles} / {displayArticles.length} makale gösteriliyor
           </p>
         </div>
       )}

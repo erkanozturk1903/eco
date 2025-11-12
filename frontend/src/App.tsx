@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Resources from "./pages/Resources";
+import ArticleDetail from "./pages/articles/ArticleDetail";
 // Dashboard and Admin pages temporarily disabled - will be enabled with custom backend
 // import Dashboard from "./pages/Dashboard";
 // import AdminLogin from "./pages/admin/Login";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/hakkimizda" element={<About />} />
           <Route path="/iletisim" element={<Contact />} />
           <Route path="/kaynaklar" element={<Resources />} />
+          <Route path="/kaynaklar/:slug" element={<ArticleDetail />} />
           {/* Dashboard and Admin routes temporarily disabled - will be enabled with custom backend */}
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
