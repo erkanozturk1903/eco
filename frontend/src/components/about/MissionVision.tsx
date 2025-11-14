@@ -18,17 +18,9 @@ const MissionVision = () => {
 
               <div className="space-y-4 font-body text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  Türkiye'deki işletmelerin sürdürülebilirlik dönüşümünde güvenilir ortağı olmak
-                  ve çevresel ayak izlerini azaltmalarına öncülük etmek.
-                </p>
-                <p>
-                  Yapay zeka destekli platformumuz ve uzman kadromuzla, şirketlerin TSRS standartlarına
-                  uygun raporlama yapmalarını sağlamak ve karbon nötr hedeflerine ulaşmalarında
-                  rehberlik etmek.
-                </p>
-                <p>
-                  Her ölçekteki işletmeye erişilebilir, şeffaf ve etkili ESG çözümleri sunarak
-                  Türkiye'nin sürdürülebilir kalkınma hedeflerine katkıda bulunmak.
+                  İş ortaklarımıza sürdürülebilir büyüme yolculuklarında rehberlik ederek; ekolojik
+                  etkilerini ölçüp yönetmelerine, insan potansiyelini geliştirip güçlendirmelerine ve
+                  finansal dayanıklılıklarını artırarak toplumsal değer yaratmalarına destek olmak.
                 </p>
               </div>
             </div>
@@ -47,16 +39,8 @@ const MissionVision = () => {
               
               <div className="space-y-4 font-body text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  2030 yılına kadar Türkiye'nin en güvenilir ve kapsamlı sürdürülebilirlik 
-                  platformu olmak ve 5,000'den fazla şirkete hizmet vermek.
-                </p>
-                <p>
-                  Bölgenin ESG dönüşümünde lider konumda bulunmak ve teknoloji odaklı 
-                  çözümlerimizle uluslararası arenada Türkiye'yi temsil etmek.
-                </p>
-                <p>
-                  Sürdürülebilirlik raporlamasını tüm sektörler için standart hale 
-                  getirmek ve Türkiye'nin karbon nötr ekonomiye geçişini hızlandırmak.
+                  Her kurumun kendi kaynaklarını güçlendirerek sürdürülebilir kalkınmaya katkı sunduğu
+                  bir gelecek için çalışmak.
                 </p>
               </div>
             </div>
