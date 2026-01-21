@@ -1,4 +1,21 @@
 services:
+  # React Frontend
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: eco-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ../frontend/src:/app/src
+      - ../frontend/public:/app/public
+    networks:
+      - eco-network
+    depends_on:
+      - backend
+
   # PostgreSQL Database with pgvector for AI/ML embeddings
   postgres:
     image: pgvector/pgvector:pg16
