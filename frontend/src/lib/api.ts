@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8002/api/v1';
+// Production backend URL (Railway)
+const PRODUCTION_API_URL = 'https://eco-production-c59c.up.railway.app/api/v1';
+const LOCAL_API_URL = 'http://localhost:8002/api/v1';
+
+// Auto-detect environment: use production URL if not on localhost
+const isLocalhost = typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || (isLocalhost ? LOCAL_API_URL : PRODUCTION_API_URL);
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
